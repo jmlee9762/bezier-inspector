@@ -1,5 +1,7 @@
 # Bézier Inspector
 
+![Overview](overview.png)
+
 A CEP extension for Adobe Illustrator that visualizes anchor points, Bézier handles, connector lines, and font metrics directly on the artboard.
 
 ## Features
