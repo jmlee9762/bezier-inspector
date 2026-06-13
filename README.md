@@ -1,4 +1,4 @@
-# Bézier Inspector
+# Bézier Inspector for Adobe Illustrator
 
 ### 🎨 Adobe Illustrator CEP Extension / Adobe Illustrator CEP 플러그인
 
