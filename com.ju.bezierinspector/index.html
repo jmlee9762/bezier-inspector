@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Bézier Inspector</title>
+<link rel="stylesheet" href="css/style.css"/>
+</head>
+<body class="mode-selection">
+<div id="app">
+
+  <header id="topbar">
+    <div class="brand"><span class="dot"></span><span class="brand-t">Bézier Inspector</span></div>
+    <span id="live-dot" title="Live updates on">live</span>
+  </header>
+
+  <main id="scroll">
+    <div class="ui-col">
+
+      <!-- SOURCE: SELECTION -->
+      <section class="sec only-sel" data-open="true">
+        <div class="sec-h"><span class="sec-title"><span class="sec-ico">⌖</span><span>Source · selection</span></span><i class="chev"></i></div>
+        <div class="sec-b">
+          <button id="btn-inspect" class="primary alt">Inspect selection</button>
+        </div>
+      </section>
+
+      <!-- OUTPUT TOGGLES -->
+      <section class="sec" data-open="true">
+        <div class="sec-h"><span class="sec-title"><span class="sec-ico">☑</span><span>What to draw</span></span><i class="chev"></i></div>
+        <div class="sec-b control-stack">
+          <div class="out-toggles">            <label class="chk"><input id="o-anchors" type="checkbox" checked/><span>Anchors</span></label>
+            <label class="chk"><input id="o-handles" type="checkbox" checked/><span>Handles</span></label>
+            <label class="chk"><input id="o-lines" type="checkbox" checked/><span>Handle connector lines</span></label>
+            <label class="chk"><input id="o-metrics" type="checkbox" checked/><span>Metrics</span></label>
+          </div>
+        </div>
+      </section>
+
+      <!-- ANCHOR POINTS -->
+      <section class="sec" data-open="true">
+        <div class="sec-h"><span class="sec-title"><span class="sec-ico">◆</span><span>Anchor points</span></span><i class="chev"></i></div>
+        <div class="sec-b control-stack">
+          <div class="crow"><span class="cl">Fill</span><input class="sw" id="anchor-col" type="color" value="#ff7a00"/><input class="hex" id="anchor-hex" type="text" value="#FF7A00"/></div>
+          <div class="crow"><span class="cl">Outline</span><input class="sw" id="anchor-ocol" type="color" value="#000000"/><input class="hex" id="anchor-ohex" type="text" value="#000000"/></div>
+          <div class="srow"><span class="cl">O.Width</span><input id="anchor-ow" type="range" min="0" max="6" step="0.25" value="0"/><span class="sv" id="anchor-ow-v">0</span></div>
+          <div class="shape-row" id="anchor-shapes">
+            <button data-sh="circle" title="Circle">●</button>
+            <button data-sh="square" class="on" title="Square">■</button>
+            <button data-sh="diamond" title="Diamond">◆</button>
+            <button data-sh="cross" title="Cross">✕</button>
+            <button data-sh="emoji" title="Emoji">🙂</button>
+          </div>
+          <div class="emoji-row" id="anchor-emoji-row"><input id="anchor-emoji" type="text" maxlength="4" value="🙂"/></div>
+          <div class="srow"><span class="cl">Size</span><input id="anchor-size" type="range" min="1" max="40" step="0.5" value="9"/><span class="sv" id="anchor-size-v">9</span></div>
+        </div>
+      </section>
+
+      <!-- METRICS -->
+      <section class="sec" data-open="true">
+        <div class="sec-h"><span class="sec-title"><span class="sec-ico">≡</span><span>Metrics</span></span><i class="chev"></i></div>
+        <div class="sec-b control-stack">
+          <div class="chips" id="metric-chips">
+            <button data-m="baseline" class="on">Baseline</button>
+            <button data-m="xheight" class="on">x-height</button>
+            <button data-m="cap" class="on">Cap</button>
+            <button data-m="ascent" class="on">Ascent</button>
+            <button data-m="descent" class="on">Descent</button>
+          </div>
+          <label class="filebtn metric-filebtn"><span id="metric-font-name">Load exact font metrics (.otf / .ttf)</span><input id="metric-font-file" type="file" accept=".otf,.ttf,.ttc,.otc,.woff,.woff2"/></label>
+          <div class="crow"><span class="cl">Color</span><input class="sw" id="metric-col" type="color" value="#ff7a00"/><input class="hex" id="metric-hex" type="text" value="#FF7A00"/></div>
+          <div class="srow"><span class="cl">Width</span><input id="metric-w" type="range" min="0.1" max="4" step="0.05" value="0.75"/><span class="sv" id="metric-w-v">0.75</span></div>
+          <div class="srow"><span class="cl">Caption</span><input id="metric-label-size" type="range" min="6" max="48" step="1" value="14"/><span class="sv" id="metric-label-size-v">14</span></div>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="ui-col">
+
+      <!-- LIVE CONTROL -->
+      <section class="sec" data-open="true">
+        <div class="sec-h"><span class="sec-title"><span class="sec-ico">●</span><span>Live on artboard</span></span><i class="chev"></i></div>
+        <div class="sec-b">
+          <label class="chk"><input id="tg-live" type="checkbox" checked/><span>Live update</span></label>
+          <div class="btn-row">
+            <button id="btn-update" class="mini-btn">Update now</button>
+            <button id="btn-finalize" class="mini-btn">Finalize</button>
+            <button id="btn-clear" class="mini-btn danger">Clear</button>
+          </div>
+          <div id="readout" class="readout">Select something and inspect.</div>
+          <div id="status" class="status"></div>
+        </div>
+      </section>
+
+      <!-- BÉZIER HANDLES -->
+      <section class="sec" data-open="true">
+        <div class="sec-h"><span class="sec-title"><span class="sec-ico">⌁</span><span>Bézier handles</span></span><i class="chev"></i></div>
+        <div class="sec-b control-stack">
+          <div class="crow"><span class="cl">Fill</span><input class="sw" id="handle-col" type="color" value="#888888"/><input class="hex" id="handle-hex" type="text" value="#888888"/></div>
+          <div class="crow"><span class="cl">Outline</span><input class="sw" id="handle-ocol" type="color" value="#000000"/><input class="hex" id="handle-ohex" type="text" value="#000000"/></div>
+          <div class="srow"><span class="cl">O.Width</span><input id="handle-ow" type="range" min="0" max="6" step="0.25" value="0"/><span class="sv" id="handle-ow-v">0</span></div>
+          <div class="shape-row" id="handle-shapes">
+            <button data-sh="circle" class="on" title="Circle">●</button>
+            <button data-sh="square" title="Square">■</button>
+            <button data-sh="diamond" title="Diamond">◆</button>
+            <button data-sh="cross" title="Cross">✕</button>
+            <button data-sh="emoji" title="Emoji">🙂</button>
+          </div>
+          <div class="emoji-row" id="handle-emoji-row"><input id="handle-emoji" type="text" maxlength="4" value="🙂"/></div>
+          <div class="srow"><span class="cl">Size</span><input id="handle-size" type="range" min="1" max="40" step="0.5" value="6"/><span class="sv" id="handle-size-v">6</span></div>
+
+          <div class="bz-sub">Handle connector lines</div>
+          <div class="crow"><span class="cl">Color</span><input class="sw" id="line-col" type="color" value="#888888"/><input class="hex" id="line-hex" type="text" value="#888888"/></div>
+          <div class="srow"><span class="cl">Width</span><input id="line-w" type="range" min="0.1" max="4" step="0.05" value="0.75"/><span class="sv" id="line-w-v">0.75</span></div>
+        </div>
+      </section>
+</div>
+  </main>
+</div>
+
+<script src="lib/CSInterface.js"></script>
+<script src="lib/opentype.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
