@@ -263,56 +263,7 @@ bash scripts/install_zxp_with_upia.sh
 The script looks for Adobe Unified Plugin Installer Agent in the standard Creative Cloud Desktop path.  
 이 스크립트는 Creative Cloud Desktop에 포함된 Adobe Unified Plugin Installer Agent의 기본 경로를 사용합니다.
 
----
-
-## ⚠️ Important notes / 중요 참고 사항
-
-### This is a free distribution build / 무료 배포용 빌드입니다
-
-This package is not a notarized macOS app installer.  
-이 패키지는 macOS notarized 앱 설치기가 아닙니다.
-
-The previous `.app` installer approach could trigger macOS Gatekeeper warnings unless signed with an Apple Developer ID and notarized.  
-이전 `.app` 설치기 방식은 Apple Developer ID로 서명 및 노타라이즈하지 않으면 macOS Gatekeeper 경고가 뜰 수 있습니다.
-
-For this reason, this build uses a Terminal-based installer instead.  
-그래서 이번 빌드는 Terminal 기반 설치 방식을 사용합니다.
-
-### Open from Extensions (Legacy) / Extensions (Legacy)에서 여세요
-
-Bézier Inspector is a CEP extension.  
-Bézier Inspector는 CEP 확장입니다.
-
-In Illustrator 2026 and newer, open it from:  
-Illustrator 2026 이후 버전에서는 아래 메뉴에서 여는 것을 권장합니다.
-
-```text
-Window → Extensions (Legacy) → Bézier Inspector
-```
-
-### Do not keep duplicate folders / 중복 폴더를 남기지 마세요
-
-Only one installed folder should exist:  
-설치 폴더는 아래 하나만 있어야 합니다.
-
-```text
-~/Library/Application Support/Adobe/CEP/extensions/com.ju.bezierinspector
-```
-
-Remove old folders such as:  
-아래 같은 기존 폴더가 있으면 제거하세요.
-
-```text
-com.ju.bezierInspector
-Bezier Inspector
-BezierInspector
-com.ju.bezierinspector 2
-```
-
-`install.sh` automatically backs up or removes common duplicate paths.  
-`install.sh`는 일반적인 중복 경로를 자동으로 백업하거나 제거합니다.
-
----
+--
 
 ## 🔧 Manual install reference / 수동 설치 참고
 
