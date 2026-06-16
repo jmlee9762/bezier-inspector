@@ -91,7 +91,11 @@ Run the installer.
 설치 스크립트를 실행하세요.
 
 ```bash
+macOS:
 bash install.sh
+
+Windows:
+install_windows.bat
 ```
 
 ### Step 5 / 5단계
